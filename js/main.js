@@ -1,10 +1,5 @@
 // add scripts
-
-$(document).on('ready', function() {
-  console.log('sanity check!');
-});
-
-function Car(make, model, year, color){
+ function Car(make, model, year, color){
   this.make = make;
   this.model = model;
   this.year = year;
@@ -15,29 +10,29 @@ function Car(make, model, year, color){
   this.passengers = [];
 }
 
-var redCarrera = new Car("Porsche", "Carrera", "2015", "red");
-var bluePrius = new Car("Toyota", "Prius", "2014", "blue");
-var greenFj = new Car("Toyota", "fjCruiser", "2012", "green");
+var porscheCarrera15 = new Car("Porsche", "Carrera", "2015", "red");
+var toyotaPrius14 = new Car("Toyota", "Prius", "2014", "blue");
+var toyotaFJ12 = new Car("Toyota", "FJ Cruiser", "2012", "green");
 
 Car.prototype.driveTo = function (destination) {
   if (this.state === "on")
   console.log("Driving to " +destination);
   else
   console.log("Sorry, this car is off.");
-
 };
+
 Car.prototype.paint = function(newColor) {
   this.color = newColor;
-
 };
+
 Car.prototype.start = function() {
   this.state = "on";
-
 };
+
 Car.prototype.off = function(){
   this.state = "off";
-
 };
+
 Car.prototype.park = function() {
   if (this.state === "off")
   console.log("Parked!");
@@ -46,6 +41,24 @@ Car.prototype.park = function() {
 };
 
 Car.prototype.sale = function(owner, newOwner) {
-  previous_owners.push(owner);
-  current_owner.push(newOwner);
+  this.previous_owners.push(owner);
+  this.current_owner.push(newOwner);
+};
+
+Car.prototype.pickUp = function (name) {
+  if (this.state === "on") {
+    this.passengers.push(name);
+    console.log("Driving to pickup " +name);
+  } else
+    console.log("Car is off.");
+};
+
+Car.prototype.dropOff = function (name) {
+  var index = this.passengers.indexOf(name);
+  if (this.state === "off")
+   return "Car is off.";
+  if (index != -1)
+    this.passengers.splice(index, 1);
+    else
+    console.log("Not a passenger.");
 };
